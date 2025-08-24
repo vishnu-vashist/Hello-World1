@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="h4">Your Cart</h1>
+{% if items %}
+<table class="table align-middle">
+  <thead><tr><th>Item</th><th>Qty</th><th>Price</th><th>Subtotal</th><th></th></tr></thead>
+  <tbody>
+    {% for it in items %}
+    <tr>
+      <td><img src="{{ it.image }}" style="width:48px;height:48px" class="me-2"> {{ it.name }}</td>
+      <td>{{ it.qty }}</td>
+      <td>₹ {{ '%.0f'|format(it.price) }}</td>
+      <td>₹ {{ '%.0f'|format(it.subtotal) }}</td>
+      <td>
+        <form method="post" action="/cart/remove/{{ it.id }}">
+          <button class="btn btn-sm btn-outline-danger">Remove</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="text-end h5">Total: ₹ {{ '%.0f'|format(total) }}</div>
+<div class="text-end">
+  <a class="btn btn-success" href="/cart/checkout">Proceed to Checkout</a>
+</div>
+{% else %}
+<p>Your cart is empty.</p>
+{% endif %}
+{% endblock %}

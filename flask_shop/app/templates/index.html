@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="h4">New Arrivals</h1>
+<form class="row g-2 my-2" method="get">
+  <div class="col-6">
+    <input class="form-control" name="color" placeholder="Filter by color (red, blue, green)">
+  </div>
+  <div class="col-6">
+    <input class="form-control" name="design" placeholder="Filter by design (floral, paisley)">
+  </div>
+  <div class="col-12 d-grid d-md-block">
+    <button class="btn btn-primary">Apply Filters</button>
+  </div>
+</form>
+<div class="row row-cols-2 row-cols-md-3 g-3">
+  {% for p in products %}
+  <div class="col">
+    <div class="card h-100">
+      <img src="{{ p.image }}" class="card-img-top" alt="{{ p.name }}">
+      <div class="card-body d-flex flex-column">
+        <h2 class="h6 card-title">{{ p.name }}</h2>
+        <div class="mt-auto">
+          <div class="fw-bold">₹ {{ '%.0f'|format(p.price) }}</div>
+          <a href="/product/{{ p.id }}" class="btn btn-sm btn-outline-secondary mt-2">View</a>
+          <form action="/cart/add" method="post" class="d-inline">
+            <input type="hidden" name="product_id" value="{{ p.id }}">
+            <input type="hidden" name="name" value="{{ p.name }}">
+            <input type="hidden" name="price" value="{{ p.price }}">
+            <input type="hidden" name="image" value="{{ p.image }}">
+            <button class="btn btn-sm btn-primary mt-2">Add to Cart</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
