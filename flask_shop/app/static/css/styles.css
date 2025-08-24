@@ -1,0 +1,4 @@
+:root { --brand:#7c3aed; }
+.card img { object-fit: cover; }
+.navbar-brand { font-weight: 700; color: var(--brand); }
+.btn-primary { background: var(--brand); border-color: var(--brand); }

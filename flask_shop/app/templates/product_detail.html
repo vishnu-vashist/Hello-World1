@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row g-3">
+  <div class="col-12 col-md-6">
+    <div id="gallery" class="d-flex gap-2">
+      {% for img in product.images %}
+      <img src="{{ img }}" class="img-fluid rounded border" style="max-width: 48%;" alt="{{ product.name }}">
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-12 col-md-6">
+    <h1 class="h4">{{ product.name }}</h1>
+    <div class="h5">₹ {{ '%.0f'|format(product.price) }}</div>
+    <div class="small text-muted">Variants:</div>
+    <ul>
+      {% for v in product.variants %}
+      <li>{{ v.color }} • {{ v.size }} • {{ v.fabric }}</li>
+      {% endfor %}
+    </ul>
+    <form action="/cart/add" method="post">
+      <input type="hidden" name="product_id" value="{{ product.id }}">
+      <input type="hidden" name="name" value="{{ product.name }}">
+      <input type="hidden" name="price" value="{{ product.price }}">
+      <input type="hidden" name="image" value="{{ product.images[0] }}">
+      <button class="btn btn-primary">Add to Cart</button>
+    </form>
+    <hr>
+    <h2 class="h6">Related Products</h2>
+    <div class="d-flex gap-3">
+      {% for r in related %}
+      <a href="/product/{{ r.id }}" class="text-decoration-none">
+        <img src="{{ r.image }}" style="width: 96px; height: 96px;" class="rounded border" alt="{{ r.name }}">
+        <div class="small">{{ r.name }}</div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

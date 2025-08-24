@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="h4">Admin Dashboard</h1>
+<div class="row g-3">
+  <div class="col-12 col-md-4"><div class="card p-3">Sales Today: {{ metrics.sales_today }}</div></div>
+  <div class="col-12 col-md-4"><div class="card p-3">Pending Orders: {{ metrics.orders_pending }}</div></div>
+  <div class="col-12 col-md-4"><div class="card p-3">Low Inventory: {{ metrics.inventory_low }}</div></div>
+</div>
+{% endblock %}
